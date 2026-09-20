@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev 导航站 · Jev Directory</title>
+<meta name="description" content="Jev（TypeSafe AI System One 决策模型）相关开源项目、X 爆款案例、Skills 与官方资源的导航站。">
+<style>
+:root{--bg:#0d0d0b;--sf:#161614;--rs:#1f1f1c;--ln:#2a2a26;--fg:#ececе6;--fg:#ecece6;--mu:#9a9a90;--em:#ff8a3d;--em2:#ffb27a;--ok:#7ad38f}
+*{box-sizing:border-box}html{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Segoe UI,Roboto,sans-serif}
+a{color:var(--em2);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{padding:40px 0 20px}
+h1{font-size:34px;margin:0 0 8px;letter-spacing:-.5px}h1 span{color:var(--em)}
+.sub{color:var(--mu);max-width:70ch;margin:0}
+.stats{display:flex;gap:22px;margin:18px 0 0;flex-wrap:wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--mu)}
+.stats b{color:var(--fg);font-size:18px;display:block}
+nav.tabs{display:flex;gap:4px;border-bottom:1px solid var(--ln);margin-top:24px;overflow-x:auto}
+nav.tabs button{background:none;border:0;color:var(--mu);padding:12px 16px;font-size:15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+nav.tabs button.on{color:var(--fg);border-color:var(--em)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.bar input{flex:1;min-width:220px;background:var(--sf);border:1px solid var(--ln);color:var(--fg);padding:10px 12px;border-radius:8px;font-size:15px}
+.bar select{background:var(--sf);border:1px solid var(--ln);color:var(--fg);padding:9px 10px;border-radius:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--sf);border:1px solid var(--ln);color:var(--mu);padding:5px 11px;border-radius:999px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--em);color:#1a0d04;border-color:var(--em);font-weight:600}
+.chip small{opacity:.7;margin-left:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;padding-bottom:60px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card:hover{border-color:#3a3a34}
+.top{display:flex;justify-content:space-between;gap:8px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mu)}
+.top .cat{color:var(--em2)}
+.ttl{font-weight:600;font-size:16px;line-height:1.3;margin:0}
+.ttl a{color:var(--fg)}
+.zh{margin:0;color:var(--fg)}
+.en{margin:0;color:var(--mu);font-size:13.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.post{margin:0;color:var(--mu);font-size:13.5px;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.media{width:100%;border-radius:8px;border:1px solid var(--ln);aspect-ratio:16/9;object-fit:cover;background:var(--rs)}
+.who{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mu)}
+.who img{width:22px;height:22px;border-radius:50%;background:var(--rs)}
+.meta{display:flex;gap:12px;flex-wrap:wrap;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mu);margin-top:auto}
+.meta b{color:var(--fg);font-weight:600}
+.links{display:flex;gap:10px;flex-wrap:wrap;font-size:13px}
+.tags{display:flex;gap:4px;flex-wrap:wrap}.tags span{background:var(--rs);border-radius:6px;padding:2px 7px;font-size:11.5px;color:var(--mu);font-family:ui-monospace,Menlo,monospace}
+.empty{color:var(--mu);padding:40px 0;text-align:center}
+footer{color:var(--mu);font-size:13px;padding:30px 0 50px;border-top:1px solid var(--ln)}
+.rank{color:var(--em);font-weight:700}
+.uilang{float:right;display:flex;gap:2px;border:1px solid var(--ln);border-radius:8px;overflow:hidden;margin-top:6px}.uilang button{background:var(--sf);border:0;color:var(--mu);padding:6px 12px;cursor:pointer;font-size:13px}.uilang button.on{background:var(--em);color:#1a0d04;font-weight:600}
+@media (max-width:600px){h1{font-size:26px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="uilang" id="uilang"><button data-l="zh">中文</button><button data-l="en">EN</button></div>
+  <h1 id="h1"><span>Jev</span> 导航站</h1>
+  <p class="sub" id="sub"></p>
+  <div class="stats" id="stats"></div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+<main>
+  <div class="bar">
+    <input id="q" type="search">
+    <select id="lang"></select>
+    <select id="sort"></select>
+  </div>
+  <div class="chips" id="cats"></div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer id="foot"></footer>
+</div>
+<script src="data.js"></script>
+<script>
+const CAT_ZH = {
+  "agents-browsers":"浏览器 / Agent","coding-agents":"编程 Agent","tools-apps":"工具与应用","games-realtime":"游戏与实时",
+  "triage-routing":"分诊 / 路由 / Guard","content-growth":"内容与增长","research-data":"研究与数据","trading-markets":"交易与市场",
+  "robotics-devices":"机器人与设备","infra-sdk":"SDK / 复刻 / 基础设施","awesome-learning":"资源与教程","official":"官方"
+};
+const CAT_EN = {
+  "agents-browsers":"Browsers / Agents","coding-agents":"Coding Agents","tools-apps":"Tools & Apps","games-realtime":"Games & Realtime",
+  "triage-routing":"Triage / Routing / Guard","content-growth":"Content & Growth","research-data":"Research & Data","trading-markets":"Trading & Markets",
+  "robotics-devices":"Robotics & Devices","infra-sdk":"SDK / Ports / Infra","awesome-learning":"Resources & Learning","official":"Official"
+};
+const I18N = {
+  zh:{title:'<span>Jev</span> 导航站', sub:'TypeSafe AI 的 System One 决策模型 <b>Jev</b>（2026-09-15 发布）相关的开源项目、X 爆款案例、Skills 与官方资源。Jev 只做「要不要 / 选哪个 / 打几分 / 下一步干什么」，需要生成文本时再交给传统大模型。',
+    tabs:{github:"📦 开源项目",x:"🔥 爆款推文",tools:"🛠 Skills / 在线工具",official:"📚 官方资源",all:"全部"},
+    sorts:{hot:"热度（赞 / Star）",stars:"GitHub Star",likes:"X 点赞",views:"X 浏览量",date:"最新"},
+    stats:["条目（去重）","开源项目","推文","开源项目累计 Star","官方发布贴浏览（3 条）","社区案例推文浏览","推文浏览合计","数据更新"], q:"搜索项目名、作者、描述、标签…",
+    langs:{"":"全部内容语言",zh:"中文内容",en:"English content"}, all:"全部", empty:"没有匹配的条目",
+    kinds:{x:"X 帖子",github:"GitHub",skill:"Skill",site:"在线工具",article:"文章",official:"官方"}, integ:" · 集成 Jev", zhTag:" · 中文", offTag:" · 官方发布贴",
+    open:"打开来源 ↗", gh:"GitHub ↗", xpost:"X 帖子 ↗",
+    foot:(g)=>'数据来源：GitHub Search API、X 公开帖子、社区 awesome-jev 列表。所有指标（耗时 / 成本 / 准确率）均来自作者自述，引用前请核对来源。生成于 '+g+'。', docTitle:"Jev 导航站 · TypeSafe Jev 开源项目与爆款案例"},
+  en:{title:'<span>Jev</span> Directory', sub:'Open-source projects, viral X posts, Skills and official resources around <b>Jev</b>, the System One decision model from TypeSafe AI (released 2026-09-15). Jev only answers "yes/no, which one, what score, what next" — hand off to a regular LLM when you need generated text.',
+    tabs:{github:"📦 Open Source",x:"🔥 Viral Posts",tools:"🛠 Skills / Tools",official:"📚 Official",all:"All"},
+    sorts:{hot:"Hot (likes / stars)",stars:"GitHub stars",likes:"X likes",views:"X views",date:"Newest"},
+    stats:["entries (deduped)","open-source projects","posts","stars (open-source)","official launch post views (3)","community case post views","total post views","data updated"], q:"Search name, author, description, tags…",
+    langs:{"":"All content languages",zh:"Chinese content",en:"English content"}, all:"All", empty:"No matching entries",
+    kinds:{x:"X post",github:"GitHub",skill:"Skill",site:"Web tool",article:"Article",official:"Official"}, integ:" · integrates Jev", zhTag:" · Chinese", offTag:" · official launch post",
+    open:"Open source ↗", gh:"GitHub ↗", xpost:"X post ↗",
+    foot:(g)=>'Sources: GitHub Search API, public X posts, community awesome-jev lists. All metrics (latency / cost / accuracy) are self-reported by authors — verify before citing. Generated '+g+'.', docTitle:"Jev Directory · Open-source projects & viral cases for TypeSafe Jev"}
+};
+let ui = (location.hash.match(/lang=(zh|en)/)||[])[1] || localStorage.getItem("jev_ui") || (navigator.language.startsWith("zh")?"zh":"en");
+const T = () => I18N[ui];
+const CAT = new Proxy({}, {get:(_,k)=>(ui==="en"?CAT_EN:CAT_ZH)[k], ownKeys:()=>Object.keys(CAT_ZH), getOwnPropertyDescriptor:()=>({enumerable:true,configurable:true})});
+const TABS = [
+  ["x", d=>d.kind==="x"],
+  ["github", d=>d.kind==="github"],
+  ["tools", d=>["skill","site","article"].includes(d.kind)],
+  ["official", d=>d.kind==="official"],
+  ["all", d=>!(d.kind!=="github" && d.kind!=="x" && GH_SET.has(((d.github||d.url)||"").replace(/\/$/,"").toLowerCase()))],
+];
+const GH_SET = new Set(window.JEV_DATA.filter(d=>d.kind==="github").map(d=>(d.url||"").replace(/\/$/,"").toLowerCase()));
+const SORTS = {
+  hot:(a,b)=>((a.native===false)-(b.native===false)) || score(b)-score(a),
+  stars:(a,b)=>(b.stars||0)-(a.stars||0),
+  likes:(a,b)=>(b.likes||0)-(a.likes||0),
+  views:(a,b)=>(b.views||0)-(a.views||0),
+  date:(a,b)=>(b.date||"").localeCompare(a.date||""),
+};
+const score = d => (+d.likes||0) + (+d.stars||0)*3 + (+d.views||0)/400;
+const fmt = n => { n = n===""||n==null?null:+n; return n==null?"":n>=1e6?(n/1e6).toFixed(1)+"M":n>=1e3?(n/1e3).toFixed(n>=1e4?0:1)+"K":String(n); };
+const esc = s => (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const D = window.JEV_DATA;
+let tab="x", cat="", q="", sort="hot", lang="";
+
+function render(){
+  const tabFn = TABS.find(t=>t[0]===tab)[1];
+  let base = D.filter(tabFn).filter(d=>!lang||d.srcLang===lang);
+  const counts = {}; base.forEach(d=>counts[d.category]=(counts[d.category]||0)+1);
+  document.getElementById("cats").innerHTML = ['<span class="chip'+(cat?"":" on")+'" data-c="">'+T().all+'<small>'+base.length+'</small></span>']
+    .concat(Object.keys(CAT).filter(c=>counts[c]).map(c=>'<span class="chip'+(cat===c?" on":"")+'" data-c="'+c+'">'+CAT[c]+'<small>'+counts[c]+'</small></span>')).join("");
+  const kw = q.trim().toLowerCase();
+  let rows = base.filter(d=>(!cat||d.category===cat) && (!kw || (d.title+" "+(d.zh||"")+" "+(d.summary||"")+" "+(d.post||"")+" "+(d.author||"")+" "+(d.handle||"")+" "+(d.tags||[]).join(" ")+" "+(d.github||"")).toLowerCase().includes(kw)));
+  rows.sort(SORTS[sort]);
+  document.getElementById("grid").innerHTML = rows.length? rows.map(card).join("") : '<div class="empty">'+T().empty+'</div>';
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+}
+document.getElementById("lang").onchange = e=>{lang=e.target.value; render();};
+function card(d,i){
+  const link = d.url;
+  const gh = d.github && d.github!==d.url ? d.github : null;
+  const media = d.media?'<a href="'+esc(link)+'" target="_blank" rel="noopener"><img class="media" loading="lazy" referrerpolicy="no-referrer" src="'+esc(d.media)+'" alt=""></a>':"";
+  const who = d.author?'<div class="who">'+(d.avatar?'<img loading="lazy" referrerpolicy="no-referrer" src="'+esc(d.avatar)+'" alt="">':"")+'<span>'+esc(d.author)+(d.handle?' <a href="https://x.com/'+esc(d.handle)+'" target="_blank" rel="noopener">@'+esc(d.handle)+'</a>':"")+'</span></div>':"";
+  const meta = [d.stars!=null?'★ <b>'+fmt(d.stars)+'</b>':"", d.likes!=null?'♥ <b>'+fmt(d.likes)+'</b>':"", d.views!=null?'👁 <b>'+fmt(d.views)+'</b>':"", d.lang?esc(d.lang):"", d.date?esc(d.date):""].filter(Boolean).join('<span>·</span>');
+  const metrics = d.metrics && Object.keys(d.metrics).length ? '<div class="tags">'+Object.entries(d.metrics).map(([k,v])=>'<span>'+esc(k)+': '+esc(v)+'</span>').join("")+'</div>' : "";
+  const tags = d.tags&&d.tags.length?'<div class="tags">'+d.tags.slice(0,6).map(t=>'<span>'+esc(t)+'</span>').join("")+'</div>':"";
+  const kindLabel = T().kinds[d.kind]||d.kind;
+  const en = ui==="en";
+  const desc = en ? (d.summary||(d.srcLang==="zh"?d.zh:"")||"") : (d.zh||"");
+  const desc2 = en ? "" : (d.summary||"");
+  return '<article class="card">'+
+    '<div class="top"><span class="rank">#'+(i+1)+'</span><span class="cat">'+(CAT[d.category]||d.category||"")+'</span><span>'+kindLabel+(d.official?T().offTag:"")+(d.native===false?T().integ:"")+(d.srcLang==="zh"?T().zhTag:"")+'</span></div>'+
+    '<h3 class="ttl"><a href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(d.title)+'</a></h3>'+
+    (desc?'<p class="zh">'+esc(desc)+'</p>':"")+
+    (d.kind==="x"&&d.post?'<p class="post">'+esc(d.post)+'</p>':(desc2?'<p class="en">'+esc(desc2)+'</p>':""))+
+    media+who+metrics+tags+
+    '<div class="meta">'+meta+'</div>'+
+    '<div class="links"><a href="'+esc(link)+'" target="_blank" rel="noopener">'+T().open+'</a>'+(gh?'<a href="'+esc(gh)+'" target="_blank" rel="noopener">'+T().gh+'</a>':"")+(d.x&&d.x!==link?'<a href="'+esc(d.x)+'" target="_blank" rel="noopener">'+T().xpost+'</a>':"")+'</div>'+
+  '</article>';
+}
+function applyUI(){
+  const t=T(); document.documentElement.lang = ui==="en"?"en":"zh-CN"; document.title=t.docTitle;
+  document.getElementById("h1").innerHTML=t.title; document.getElementById("sub").innerHTML=t.sub;
+  document.getElementById("q").placeholder=t.q;
+  document.getElementById("lang").innerHTML=Object.entries(t.langs).map(([k,v])=>'<option value="'+k+'"'+(k===lang?" selected":"")+'>'+v+'</option>').join("");
+  document.getElementById("tabs").innerHTML = TABS.map(x=>'<button data-t="'+x[0]+'">'+t.tabs[x[0]]+' <small>'+D.filter(x[1]).length+'</small></button>').join("");
+  const S=document.getElementById("sort"); S.innerHTML=Object.keys(SORTS).map(k=>'<option value="'+k+'"'+(k===sort?" selected":"")+'>'+t.sorts[k]+'</option>').join("");
+  const X=D.filter(d=>d.kind==="x"), nx=X.length, ng=D.filter(d=>d.kind==="github").length;
+  const vOff=X.filter(d=>d.official).reduce((s,d)=>s+(+d.views||0),0), vCase=X.filter(d=>!d.official).reduce((s,d)=>s+(+d.views||0),0);
+  const vals=[D.filter(TABS.find(x=>x[0]==="all")[1]).length, ng, nx, fmt(D.filter(d=>d.kind==="github").reduce((s,d)=>s+(d.stars||0),0)), fmt(vOff), fmt(vCase), fmt(vOff+vCase), window.JEV_META.generated];
+  document.getElementById("stats").innerHTML = vals.map((v,i)=>'<div><b>'+v+'</b>'+t.stats[i]+'</div>').join("");
+  document.getElementById("foot").innerHTML = t.foot(window.JEV_META.generated);
+  document.querySelectorAll("#uilang button").forEach(b=>b.classList.toggle("on",b.dataset.l===ui));
+  render();
+}
+document.getElementById("tabs").onclick = e=>{const b=e.target.closest("button"); if(!b)return; tab=b.dataset.t; cat=""; render();};
+document.getElementById("cats").onclick = e=>{const c=e.target.closest(".chip"); if(!c)return; cat=c.dataset.c; render();};
+document.getElementById("q").oninput = e=>{q=e.target.value; render();};
+document.getElementById("sort").onchange=e=>{sort=e.target.value; render();};
+document.getElementById("uilang").onclick = e=>{const b=e.target.closest("button"); if(!b)return; ui=b.dataset.l; localStorage.setItem("jev_ui",ui); history.replaceState(null,"","#lang="+ui); applyUI();};
+applyUI();
+</script>
+
+</body>
+</html>
