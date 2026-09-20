@@ -23,7 +23,6 @@ button{font:inherit;color:inherit}
 .hsearch input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--fg);font-size:14px}
 .hsearch kbd{font:11px ui-monospace,Menlo,monospace;color:var(--dim);border:1px solid var(--line2);border-radius:5px;padding:1px 5px}
 .uilang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}.uilang button{height:34px;padding:0 12px;border:0;background:var(--surface);color:var(--muted);cursor:pointer;font-size:13px}.uilang button.on{background:var(--ember);color:var(--canvas);font-weight:600}
-.cta{height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--line);color:var(--muted);display:inline-flex;align-items:center;font-size:13px}.cta:hover{color:var(--fg)}
 /* layout */
 .shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:calc(100vh - 56px)}
 .side{border-right:1px solid var(--line);padding:18px 14px 40px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
@@ -74,7 +73,7 @@ button{font:inherit;color:inherit}
 .overview .pill{border-radius:0;border:0;border-bottom:2px solid transparent;background:none}.overview .pill.on{color:var(--fg);border-bottom-color:var(--ember)}.overview .pill.on small{color:var(--muted)}
 @media(min-width:1700px){.stats{grid-template-columns:repeat(8,minmax(0,1fr))}.stats b{font-size:25px}}
 @media (max-width:900px){
-  .hdr{height:108px;flex-wrap:wrap;padding:8px 16px;gap:8px}.brand{margin-right:auto;white-space:nowrap}.brand .lg{flex:none}.cta{display:none}
+  .hdr{height:108px;flex-wrap:wrap;padding:8px 16px;gap:8px}.brand{margin-right:auto;white-space:nowrap}.brand .lg{flex:none}
   .menu-toggle{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;height:36px;padding:0 10px}
   .hsearch{display:flex;order:5;width:100%;height:40px}.hsearch input{font-size:16px}.hsearch kbd{display:none}
   .shell{grid-template-columns:1fr;min-height:calc(100vh - 108px)}.side{display:none;position:fixed;z-index:25;inset:108px 0 0;top:108px;height:auto;background:var(--canvas);border:0;padding:12px 16px}.side.open{display:block}
@@ -91,7 +90,6 @@ button{font:inherit;color:inherit}
   <label class="hsearch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search"><kbd>⌘K</kbd></label>
   <div class="uilang" id="uilang"><button data-l="zh">中文</button><button data-l="en">EN</button></div>
   <button class="menu-toggle" id="menu" aria-controls="side" aria-expanded="false">分类</button>
-  <a class="cta" id="cta" href="https://x.com/Lisaaannn333" target="_blank" rel="noopener"></a>
 </header>
 <div class="shell">
   <aside class="side" id="side"></aside>
@@ -122,7 +120,7 @@ const ICONS = {
 };
 const CATS = ["agents-browsers","games-realtime","triage-routing","trading-markets","content-growth","research-data","robotics-devices","tools-apps","resources"];
 const I18N = {
-  zh:{brand:"Jev 导航站", docTitle:"Jev 导航站 · TypeSafe Jev 用例看板", cta:"关注我的 X",
+  zh:{brand:"Jev 导航站", docTitle:"Jev 导航站 · TypeSafe Jev 用例看板",
     q:"搜索项目、作者、描述、标签…", allBuilds:"全部条目", usecases:"应用场景",
     cat:{"agents-browsers":"智能体与浏览器操作","games-realtime":"游戏","triage-routing":"大模型协作","trading-markets":"金融","content-growth":"办公场景","research-data":"深度研究","robotics-devices":"3D/机器人","tools-apps":"开发工具/应用",resources:"官方与资源"},
     catDesc:{all:"TypeSafe AI 的 System One 决策模型 Jev（2026-09-15 发布）相关的 X 爆款、开源项目、技能与官方资源。Jev 只做「要不要 / 选哪个 / 打几分 / 下一步干什么」。","agents-browsers":"让智能体在浏览器和电脑上做每一步点击决策。","games-realtime":"答案必须在一帧之内给出的游戏与仿真。","triage-routing":"分类、路由与安全检查：辅助大模型选择合适的下一步。","trading-markets":"逐区块、逐笔行情进行交易与仓位判断。","content-growth":"内容筛选、评分、排序与办公自动化案例。","research-data":"批量分类、抽取、比对与研究评测。","robotics-devices":"设备与机器人控制回路里的实时判断。","tools-apps":"把 Jev 装进日常工具、编程智能体与开发套件。",resources:"官方文档、开发套件、社区资源清单与教程。"},
@@ -130,7 +128,7 @@ const I18N = {
     sorts:{hot:"热度",stars:"GitHub 星标",likes:"X 点赞",views:"X 浏览量",date:"最新"}, langs:{"":"全部原文语言",zh:"中文原文",en:"英文原文"},
     kind:{x:"X 帖子",github:"GitHub",skill:"技能",site:"在线工具",article:"文章",official:"官方"}, official:"官方发布贴", integ:"集成 Jev", pick:"精选",
     open:"打开", empty:"没有匹配的条目", original:"查看帖子原文"},
-  en:{brand:"Jev Directory", docTitle:"Jev Directory · Use cases built with TypeSafe Jev", cta:"Follow me on X",
+  en:{brand:"Jev Directory", docTitle:"Jev Directory · Use cases built with TypeSafe Jev",
     q:"Search projects, authors, descriptions, tags…", allBuilds:"All entries", usecases:"Use cases",
     cat:{"agents-browsers":"Agent Browser Use","games-realtime":"Games","triage-routing":"LLM Partner","trading-markets":"Finance","content-growth":"Office Scenarios","research-data":"Deep Research","robotics-devices":"3D/Robotics","tools-apps":"Developer Tools/Apps",resources:"Official & resources"},
     catDesc:{all:"Viral X posts, open-source projects, Skills and official resources built with Jev, the System One decision model from TypeSafe AI (released 2026-09-15). Jev only answers: yes/no, which one, what score, what next.","agents-browsers":"Agents that decide every click in a browser or on a desktop.","games-realtime":"Games and simulations where the answer has to arrive within a frame.","triage-routing":"Triage, routing and guardrails: judge first, then decide who handles it.","trading-markets":"Buy/sell and position calls per block or per tick.","content-growth":"Content filtering, scoring, ranking and growth experiments.","research-data":"Bulk classification, extraction, comparison and evals.","robotics-devices":"Real-time judgment inside device and robot control loops.","tools-apps":"Jev inside everyday tools, coding agents and SDKs.",resources:"Official docs, SDKs, community awesome lists and tutorials."},
@@ -164,7 +162,7 @@ function sidebar(){
 }
 function header(){
   const t=T(); document.documentElement.lang = ui==="en"?"en":"zh-CN"; document.title=t.docTitle;
-  document.getElementById("brandName").textContent=t.brand; document.getElementById("cta").textContent=t.cta; document.getElementById("q").placeholder=t.q;
+  document.getElementById("brandName").textContent=t.brand; document.getElementById("q").placeholder=t.q;
   document.getElementById("q").setAttribute("aria-label",t.q);
   document.getElementById("menu").textContent=ui==="zh"?"分类":"Menu";
   const views=ALL.filter(d=>d.kind==="x").reduce((s,d)=>s+(+d.views||0),0);
