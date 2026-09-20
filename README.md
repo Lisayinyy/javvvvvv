@@ -2,7 +2,8 @@
 
 TypeSafe AI System One 决策模型 **Jev** 的生态看板：X 爆款推文、开源项目、Skills / 工具、官方资源。中 / 英双语，静态站，无需构建。
 
-- 线上：https://guuur45juj0j7.space.mcode.cn （`#lang=en` 打开英文）
+- 国内：https://guuur45juj0j7.space.mcode.cn （`#lang=en` 打开英文）
+- 海外：https://4o1a732ukzj0n.space.minimax.io （相同内容，支持中英切换；独立站点 `443814152761464`）
 - 文件：`index.html`（页面 + 逻辑，ECharts 无关，纯原生 JS）、`data.js`（全部数据，`window.JEV_DATA`）
 - `scripts/scrape_usecases.py`：从 madewithjev.com 八个 use-case 分类抓取 X 渠道案例（标题 / 作者 / 点赞 / 帖子文本 / 缩略图 / GitHub 链接），输出 `mwj_builds.json`，再合并进 `data.js`
 - 交互：总览保留带排名的原版网格卡片，分类页采用侧栏与信息流卡片；八项数据统计独立展示。默认显示 X 帖子，支持类型筛选、搜索、排序与中英切换。手机端通过「分类」菜单切换，搜索始终可用。
