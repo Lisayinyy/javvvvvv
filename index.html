@@ -12,6 +12,7 @@ body{margin:0;background:var(--canvas);color:var(--fg);font:14.5px/1.55 Geist,"G
 a{color:inherit;text-decoration:none}
 .mono{font-family:ui-monospace,"Geist Mono",SFMono-Regular,Menlo,monospace}
 button{font:inherit;color:inherit}
+.original{font-size:13px;color:var(--muted)}.original summary{cursor:pointer}.original[open] .post{display:block;overflow:visible;-webkit-line-clamp:unset;margin-top:8px}
 .menu-toggle{display:none}a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
 .who>div,.gh>div{min-width:0}.card{overflow-wrap:anywhere}.foot .k{flex-wrap:wrap}.foot .k svg{flex:none}.foot .m>span{display:inline-flex;gap:6px}
 /* header */
@@ -62,7 +63,6 @@ button{font:inherit;color:inherit}
 .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}.tags span{background:var(--raised);border-radius:6px;padding:2px 7px;font-size:11.5px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
 .big{font-size:40px;font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:14px 0 0}.big+.cap{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--muted);margin-top:4px}
 .empty{color:var(--muted);padding:60px 32px;text-align:center}
-.sfoot{padding:20px 32px 50px;color:var(--dim);font-size:12.5px;border-top:1px solid var(--line)}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 16px;margin:24px 32px;font-family:ui-monospace,Menlo,monospace;color:var(--muted);font-size:12px}
 .stats b{display:block;color:var(--fg);font-size:24px;letter-spacing:-.7px;font-weight:700}.stats span{display:block;margin-top:4px}.stats div{border-left:2px solid var(--line2);padding-left:12px;min-width:0}.stats div:first-child{border-color:var(--ember)}
 .overview .crumb,.overview .hero .ic,.overview .hero .n{display:none}.overview .hero{padding-top:36px}.overview h1{font-size:34px}.overview .hero p{font-size:15px}
@@ -91,7 +91,7 @@ button{font:inherit;color:inherit}
   <label class="hsearch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search"><kbd>⌘K</kbd></label>
   <div class="uilang" id="uilang"><button data-l="zh">中文</button><button data-l="en">EN</button></div>
   <button class="menu-toggle" id="menu" aria-controls="side" aria-expanded="false">分类</button>
-  <a class="cta" id="cta" href="https://github.com/Lisayinyy/javvvvvv" target="_blank" rel="noopener"></a>
+  <a class="cta" id="cta" href="https://x.com/Lisaaannn333" target="_blank" rel="noopener"></a>
 </header>
 <div class="shell">
   <aside class="side" id="side"></aside>
@@ -101,7 +101,6 @@ button{font:inherit;color:inherit}
     <section class="stats" id="stats" aria-label="Dataset statistics"></section>
     <div class="filters" id="filters"></div>
     <div class="grid" id="grid"></div>
-    <div class="sfoot" id="foot"></div>
   </main>
 </div>
 <script src="data.js"></script>
@@ -123,24 +122,22 @@ const ICONS = {
 };
 const CATS = ["agents-browsers","games-realtime","triage-routing","trading-markets","content-growth","research-data","robotics-devices","tools-apps","resources"];
 const I18N = {
-  zh:{brand:"Jev 导航站", docTitle:"Jev 导航站 · TypeSafe Jev 用例看板", cta:"GitHub 仓库",
-    q:"搜索项目、作者、描述、标签…", allBuilds:"全部条目", usecases:"Use cases",
-    cat:{"agents-browsers":"Agent 与浏览器","games-realtime":"游戏与实时","triage-routing":"分诊与路由","trading-markets":"交易与市场","content-growth":"内容与增长","research-data":"研究与数据","robotics-devices":"机器人与设备","tools-apps":"工具与应用",resources:"官方与资源"},
-    catDesc:{all:"TypeSafe AI 的 System One 决策模型 Jev（2026-09-15 发布）相关的 X 爆款、开源项目、Skills 与官方资源。Jev 只做「要不要 / 选哪个 / 打几分 / 下一步干什么」。","agents-browsers":"让 Agent 在浏览器和电脑上做每一步点击决策。","games-realtime":"答案必须在一帧之内给出的游戏与仿真。","triage-routing":"分诊、路由、护栏：先判断，再决定交给谁处理。","trading-markets":"按区块、按 tick 做买卖与仓位判断。","content-growth":"内容筛选、评分、排序与增长实验。","research-data":"批量分类、抽取、比对与研究评测。","robotics-devices":"设备与机器人控制回路里的实时判断。","tools-apps":"把 Jev 装进日常工具、编码 Agent 与 SDK。",resources:"官方文档、SDK、社区 awesome 列表与教程。"},
-    n:(n)=>n+" 条", kinds:{all:"全部",x:"X 帖子",github:"GitHub",tools:"Skills / 工具",official:"官方"},
-    sorts:{hot:"热度",stars:"GitHub Star",likes:"X 点赞",views:"X 浏览量",date:"最新"}, langs:{"":"全部语言",zh:"中文内容",en:"English"},
-    kind:{x:"X 帖子",github:"GitHub",skill:"Skill",site:"在线工具",article:"文章",official:"官方"}, official:"官方发布贴", integ:"集成 Jev", pick:"精选",
-    open:"打开", empty:"没有匹配的条目",
-    foot:(g)=>"数据来源：X 公开帖子、GitHub Search API、社区 awesome-jev 列表；所有耗时 / 成本 / 准确率均为作者自述，引用前请核对来源。数据快照 "+g+"。"},
-  en:{brand:"Jev Directory", docTitle:"Jev Directory · Use cases built with TypeSafe Jev", cta:"GitHub repo",
+  zh:{brand:"Jev 导航站", docTitle:"Jev 导航站 · TypeSafe Jev 用例看板", cta:"关注我的 X",
+    q:"搜索项目、作者、描述、标签…", allBuilds:"全部条目", usecases:"应用场景",
+    cat:{"agents-browsers":"智能体与浏览器操作","games-realtime":"游戏","triage-routing":"大模型协作","trading-markets":"金融","content-growth":"办公场景","research-data":"深度研究","robotics-devices":"3D/机器人","tools-apps":"开发工具/应用",resources:"官方与资源"},
+    catDesc:{all:"TypeSafe AI 的 System One 决策模型 Jev（2026-09-15 发布）相关的 X 爆款、开源项目、技能与官方资源。Jev 只做「要不要 / 选哪个 / 打几分 / 下一步干什么」。","agents-browsers":"让智能体在浏览器和电脑上做每一步点击决策。","games-realtime":"答案必须在一帧之内给出的游戏与仿真。","triage-routing":"分类、路由与安全检查：辅助大模型选择合适的下一步。","trading-markets":"逐区块、逐笔行情进行交易与仓位判断。","content-growth":"内容筛选、评分、排序与办公自动化案例。","research-data":"批量分类、抽取、比对与研究评测。","robotics-devices":"设备与机器人控制回路里的实时判断。","tools-apps":"把 Jev 装进日常工具、编程智能体与开发套件。",resources:"官方文档、开发套件、社区资源清单与教程。"},
+    n:(n)=>n+" 条", kinds:{all:"全部",x:"X 帖子",github:"GitHub",tools:"技能 / 工具",official:"官方"},
+    sorts:{hot:"热度",stars:"GitHub 星标",likes:"X 点赞",views:"X 浏览量",date:"最新"}, langs:{"":"全部原文语言",zh:"中文原文",en:"英文原文"},
+    kind:{x:"X 帖子",github:"GitHub",skill:"技能",site:"在线工具",article:"文章",official:"官方"}, official:"官方发布贴", integ:"集成 Jev", pick:"精选",
+    open:"打开", empty:"没有匹配的条目", original:"查看帖子原文"},
+  en:{brand:"Jev Directory", docTitle:"Jev Directory · Use cases built with TypeSafe Jev", cta:"Follow me on X",
     q:"Search projects, authors, descriptions, tags…", allBuilds:"All entries", usecases:"Use cases",
-    cat:{"agents-browsers":"Agents and browsers","games-realtime":"Games and real time","triage-routing":"Triage and routing","trading-markets":"Trading and markets","content-growth":"Content and growth","research-data":"Research and data","robotics-devices":"Robotics and devices","tools-apps":"Tools and apps",resources:"Official & resources"},
+    cat:{"agents-browsers":"Agent Browser Use","games-realtime":"Games","triage-routing":"LLM Partner","trading-markets":"Finance","content-growth":"Office Scenarios","research-data":"Deep Research","robotics-devices":"3D/Robotics","tools-apps":"Developer Tools/Apps",resources:"Official & resources"},
     catDesc:{all:"Viral X posts, open-source projects, Skills and official resources built with Jev, the System One decision model from TypeSafe AI (released 2026-09-15). Jev only answers: yes/no, which one, what score, what next.","agents-browsers":"Agents that decide every click in a browser or on a desktop.","games-realtime":"Games and simulations where the answer has to arrive within a frame.","triage-routing":"Triage, routing and guardrails: judge first, then decide who handles it.","trading-markets":"Buy/sell and position calls per block or per tick.","content-growth":"Content filtering, scoring, ranking and growth experiments.","research-data":"Bulk classification, extraction, comparison and evals.","robotics-devices":"Real-time judgment inside device and robot control loops.","tools-apps":"Jev inside everyday tools, coding agents and SDKs.",resources:"Official docs, SDKs, community awesome lists and tutorials."},
     n:(n)=>n+" entries", kinds:{all:"All",x:"X posts",github:"GitHub",tools:"Skills / tools",official:"Official"},
-    sorts:{hot:"Hot",stars:"GitHub stars",likes:"X likes",views:"X views",date:"Newest"}, langs:{"":"All languages",zh:"Chinese",en:"English"},
+    sorts:{hot:"Hot",stars:"GitHub stars",likes:"X likes",views:"X views",date:"Newest"}, langs:{"":"All source languages",zh:"Chinese source",en:"English source"},
     kind:{x:"X post",github:"GitHub",skill:"Skill",site:"Web tool",article:"Article",official:"Official"}, official:"official launch post", integ:"integrates Jev", pick:"Pick",
-    open:"Open", empty:"No matching entries",
-    foot:(g)=>"Sources: public X posts, GitHub Search API, community awesome-jev lists. All latency / cost / accuracy figures are self-reported by authors — verify before citing. Snapshot "+g+"."}
+    open:"Open", empty:"No matching entries", original:"View original post"}
 };
 const KINDS = {all:d=>true, x:d=>d.kind==="x", github:d=>d.kind==="github", tools:d=>["skill","site","article"].includes(d.kind), official:d=>d.kind==="official"};
 const SORTS = {hot:(a,b)=>((a.native===false)-(b.native===false))||score(b)-score(a), stars:(a,b)=>(+b.stars||0)-(+a.stars||0), likes:(a,b)=>(+b.likes||0)-(+a.likes||0), views:(a,b)=>(+b.views||0)-(+a.views||0), date:(a,b)=>(b.date||"").localeCompare(a.date||"")};
@@ -172,13 +169,12 @@ function header(){
   document.getElementById("menu").textContent=ui==="zh"?"分类":"Menu";
   const views=ALL.filter(d=>d.kind==="x").reduce((s,d)=>s+(+d.views||0),0);
   document.querySelectorAll("#uilang button").forEach(b=>b.classList.toggle("on",b.dataset.l===ui));
-  document.getElementById("foot").textContent=t.foot(window.JEV_META.generated);
   const officialViews=ALL.filter(d=>d.kind==="x"&&d.official).reduce((s,d)=>s+(+d.views||0),0);
   const X=ALL.filter(d=>d.kind==="x"), GH=ALL.filter(d=>d.kind==="github");
   const values=[ALL.length,GH.length,X.length,fmt(GH.reduce((s,d)=>s+(+d.stars||0),0)),fmt(officialViews),fmt(views-officialViews),fmt(views),window.JEV_META.generated];
   const labels=ui==="zh"?["条目（去重）","开源项目","推文","开源项目累计 Star","官方发布贴浏览（"+X.filter(d=>d.official).length+" 条）","社区案例推文浏览","推文浏览合计","数据更新"]:["Unique entries","Open-source projects","X posts","GitHub stars in total","Official post views ("+X.filter(d=>d.official).length+")","Community post views","Total post views","Snapshot"];
   document.getElementById("stats").innerHTML=values.map((v,i)=>'<div><b>'+esc(v)+'</b><span>'+labels[i]+'</span></div>').join("");
-  document.getElementById("foot").textContent+=(ui==="zh"?" 浏览量口径：官方发布贴 "+fmt(officialViews)+"；社区案例 "+fmt(views-officialViews)+"；合计 "+fmt(views)+"。仅累计已有浏览数的 X 帖子，不含 GitHub 条目。":" Views: official launch posts "+fmt(officialViews)+"; community cases "+fmt(views-officialViews)+"; total "+fmt(views)+". Only X posts with recorded view counts; GitHub entries excluded.");
+  document.getElementById("stats").setAttribute("aria-label",ui==="zh"?"数据统计":"Dataset statistics");
 }
 function render(){
   const t=T(); sidebar();
@@ -198,22 +194,26 @@ function render(){
   rows.sort(SORTS[sort]);
   document.getElementById("grid").innerHTML = rows.length ? rows.map(cat==="all"?overviewCard:card).join("") : '<div class="empty">'+t.empty+'</div>';
 }
+function displayTitle(d){return d.kind==="github"?d.title:(ui==="zh"?d.titleZh:d.titleEn)||d.title;}
+function displaySummary(d){return ui==="zh"?d.zh:d.summary;}
+function originalPost(d){return d.post?'<details class="original"><summary>'+T().original+'</summary><p class="post">'+esc(d.post)+'</p></details>':"";}
 function overviewCard(d,i){
-  const t=T(), desc=ui==="en"?(d.summary||(d.srcLang==="zh"?d.zh:"")):(d.zh||d.summary||"");
-  const text=d.kind==="x"?d.post:(ui==="zh"?d.summary:"");
+  const t=T(), desc=displaySummary(d);
   const links=[[d.url,ui==="zh"?"打开来源":"Open source"]];
   if(d.github&&d.github!==d.url) links.push([d.github,"GitHub"]);
   if(d.x&&d.x!==d.url) links.push([d.x,"X"]);
   return '<article class="card"><div class="top"><span class="rank">#'+(i+1)+'</span><span class="category">'+esc(t.cat[d.category])+'</span><span>'+esc(t.kind[d.kind])+(d.official?' · '+t.official:"")+(d.native===false?' · '+t.integ:"")+'</span></div>'+
-    '<h3 class="ttl"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.title)+'</a></h3>'+
-    (desc?'<p class="summary">'+esc(desc)+'</p>':"")+(text?'<p class="post">'+esc(text)+'</p>':"")+
-    (d.media?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener"><img class="media" loading="lazy" referrerpolicy="no-referrer" src="'+esc(d.media)+'" alt="'+esc(d.title)+'"></a>':"")+
+    '<h3 class="ttl"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(displayTitle(d))+'</a></h3>'+
+    (desc?'<p class="summary">'+esc(desc)+'</p>':"")+originalPost(d)+
+    (d.media?'<a href="'+esc(d.url)+'" target="_blank" rel="noopener"><img class="media" loading="lazy" referrerpolicy="no-referrer" src="'+esc(d.media)+'" alt="'+esc(displayTitle(d))+'"></a>':"")+
     (d.author?'<div class="author">'+esc(d.author)+(d.handle?' · @'+esc(d.handle):"")+'</div>':"")+
     (d.tags?.length?'<div class="tags">'+d.tags.slice(0,6).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div>':"")+
     '<div class="foot">'+metrics(d)+'</div><div class="links">'+links.map(([url,label])=>'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+label+' ↗</a>').join("")+'</div></article>';
 }
+const METRIC_ZH={"Ads":"广告数","After (Jev)":"使用 Jev 后","Bankroll":"资金","Before":"之前","Before (LLM)":"使用大模型时","Check time":"检查耗时","Choice ceiling":"选项上限","Companies":"公司数","Correct":"正确数","Cost":"成本","Cost cut":"成本降低","Cost per post":"每帖成本","Cost per step":"每步成本","Cost per task":"每任务成本","Cost per video":"每视频成本","Decision":"决策","Decision window":"决策窗口","Demo run":"演示运行","Documents":"文档数","Emails":"邮件数","Eval set":"评测集","Form fill":"表单填写","Held-out set":"留出集","Judgments":"判断次数","Latency":"延迟","Leads":"潜在客户数","Lines":"行数","Lint rules":"代码检查规则","Listings":"条目数","Loop rate":"循环频率","Median":"中位数","Median latency":"延迟中位数","Median per passage":"每段耗时中位数","Model cost":"模型成本","Parameters":"参数量","Per decision":"每次决策","Per move":"每次行动","Per prompt":"每次提示","Per rating":"每次评分","Per step":"每步","Per word":"每词","Posts":"帖子数","Questions per call":"每次调用问题数","Questions per draft":"每份草稿问题数","Rate":"频率","Rerank":"重排序","Right file in top 5":"正确文件位于前五","Rows judged":"已判断行数","Run time":"运行耗时","Search time":"搜索耗时","Six-question request":"六问题请求","Size":"大小","Speed":"速度","Speed-up":"提速","Stars":"星标","Tagging":"标签分类","Tasks solved":"完成任务数","Tells checked":"检查特征数","Threads scanned":"扫描帖子串数","Throughput":"吞吐量","Time":"耗时","Time per move":"每次行动耗时","Tokens":"词元数","Total cost":"总成本","Use cases":"应用场景","Volume":"数量"};
+function metricLabel(key){return ui==="zh"?(METRIC_ZH[key]||key):key;}
 function metrics(d){
-  const m=[]; if(d.metrics) Object.entries(d.metrics).slice(0,4).forEach(([k,v])=>m.push(esc(k)+' <b>'+esc(v)+'</b>'));
+  const m=[]; if(d.metrics) Object.entries(d.metrics).slice(0,4).forEach(([k,v])=>m.push(esc(metricLabel(k))+' <b>'+esc(v)+'</b>'));
   if(d.stars!=null) m.push('★ <b>'+fmt(d.stars)+'</b>'); if(d.likes!=null) m.push('♥ <b>'+fmt(d.likes)+'</b>'); if(d.views!=null) m.push((ui==="zh"?'浏览':'Views')+' <b>'+fmt(d.views)+'</b>');
   if(d.lang) m.push(esc(d.lang)); if(d.date) m.push(esc(d.date));
   return m.length?'<div class="m">'+m.map(value=>'<span>'+value+'</span>').join("")+'</div>':"";
@@ -224,13 +224,13 @@ function foot(d, title){
   return '<div class="foot"><div class="k">'+k+' · '+esc(t.cat[d.category]||d.category)+pick+'</div><div class="t"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(title)+'</a></div>'+metrics(d)+'</div>';
 }
 function card(d){
-  const en = ui==="en"; const desc = en ? (d.summary||(d.srcLang==="zh"?d.zh:"")) : (d.zh||d.summary||"");
+  const desc=displaySummary(d);
   const media = d.media ? '<a href="'+esc(d.url)+'" target="_blank" rel="noopener"><img class="media" loading="lazy" referrerpolicy="no-referrer" src="'+esc(d.media)+'" alt=""></a>' : "";
   if(d.kind==="x"){
     const av = d.avatar ? '<img class="av" loading="lazy" referrerpolicy="no-referrer" src="'+esc(d.avatar)+'" alt="">' : '<span class="av">'+esc((d.author||d.handle||"?").slice(0,1).toUpperCase())+'</span>';
     const ghl = d.github ? '<a class="xk" title="GitHub" href="'+esc(d.github)+'" target="_blank" rel="noopener" style="margin-left:0">'+ICONS.gh.replace('<svg','<svg width="16" height="16"')+'</a>' : "";
     return '<article class="card"><div class="who">'+av+'<div><div class="nm">'+esc(d.author||d.handle||"")+'</div>'+(d.handle?'<div class="hd">@'+esc(d.handle)+'</div>':"")+'</div><a class="xk" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="X">'+ICONS.x+'</a>'+ghl+'</div>'+
-      (d.post?'<p class="post">'+esc(d.post)+'</p>':(desc?'<p class="post">'+esc(desc)+'</p>':""))+media+foot(d, en?(d.title):(d.zh||d.title))+'</article>';
+      (desc?'<p class="post">'+esc(desc)+'</p>':"")+originalPost(d)+media+foot(d,displayTitle(d))+'</article>';
   }
   if(d.kind==="github"){
     const [owner, repo] = (d.title||"").split("/");
@@ -240,8 +240,8 @@ function card(d){
   // article / skill / site / official
   const stat = d.metrics && Object.keys(d.metrics).length ? Object.entries(d.metrics)[0] : null;
   return '<article class="card"><div class="k mono" style="font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:center">'+ICONS.doc+' '+esc(T().kind[d.kind]||d.kind)+' · '+esc(T().cat[d.category]||d.category)+'</div>'+
-    (stat?'<div class="big">'+esc(stat[1])+'</div><div class="cap">'+esc(stat[0])+'</div>':"")+
-    '<div class="foot" style="background:none;padding:12px 2px 0"><div class="t"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.title)+'</a></div>'+(desc?'<p class="desc" style="margin-top:6px">'+esc(desc)+'</p>':"")+(d.author?'<div class="hd mono" style="margin-top:10px;color:var(--muted);font-size:12.5px">'+esc(d.author)+'</div>':"")+'</div>'+media+'</article>';
+    (stat?'<div class="big">'+esc(stat[1])+'</div><div class="cap">'+esc(metricLabel(stat[0]))+'</div>':"")+
+    '<div class="foot" style="background:none;padding:12px 2px 0"><div class="t"><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(displayTitle(d))+'</a></div>'+(desc?'<p class="desc" style="margin-top:6px">'+esc(desc)+'</p>':"")+(d.author?'<div class="hd mono" style="margin-top:10px;color:var(--muted);font-size:12.5px">'+esc(d.author)+'</div>':"")+'</div>'+media+'</article>';
 }
 function closeMenu(){document.getElementById("side").classList.remove("open");document.getElementById("menu").setAttribute("aria-expanded","false");}
 document.getElementById("menu").onclick=()=>{const open=document.getElementById("side").classList.toggle("open");document.getElementById("menu").setAttribute("aria-expanded",String(open));};
